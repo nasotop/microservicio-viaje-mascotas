@@ -23,6 +23,11 @@ public class UserController {
         _userSvc = userSvcImpl;
     }
 
+    /**
+     * Endpoint para consultar todos los usuarios
+     * 
+     * @return retorna una lista de usuarios
+     */
     @GetMapping
     public GenericResponseDto<UserDto> getAllUsers() {
         GenericResponseDto<UserDto> result = new GenericResponseDto<>();
@@ -39,13 +44,42 @@ public class UserController {
         return result;
     }
 
+    /**
+     * Enpoint para consultar un usuario especifico por id
+     * 
+     * @param id del usuario
+     * @return devuelve un DTO del usuario en caso de encontrarlo
+     */
     @GetMapping("/{id}")
-    public GenericSingleResponseDto<UserDto> getMethodName(@PathVariable("id") int id) {
+    public GenericSingleResponseDto<UserDto> getUserById(@PathVariable("id") int id) {
         GenericSingleResponseDto<UserDto> result = new GenericSingleResponseDto<>();
 
         try {
 
             result = GenericResponseMapper.ToGenericSingleResponseDto(_userSvc.getById(id));
+
+        } catch (Exception ex) {
+
+            result.loadError(ex.getMessage());
+
+        }
+
+        return result;
+    }
+
+    /**
+     * Endpoint para consultar todos los usuarios asociados a un tipo de usuario
+     * 
+     * @param idtipo id del tipo de usuario
+     * @return devuelve una lista de usuarios o null en caso de que no haya ni un
+     *         usuario asociado al tipo
+     */
+    @GetMapping("/get-by-type/{id-tipo}")
+    public GenericResponseDto<UserDto> getUsersByType(@PathVariable("id-tipo") int idtipo) {
+        GenericResponseDto<UserDto> result = new GenericResponseDto<>();
+        try {
+
+            result = GenericResponseMapper.ToGenericResponseDto(_userSvc.getUsersByType(idtipo));
 
         } catch (Exception ex) {
 

@@ -5,21 +5,27 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
 @Data
 @AllArgsConstructor
 @Builder
 public class GenericResponseDto<T> {
-    private boolean Status;
-    private String ErrorMessage;
-    private List<T> Content;  
-    
-    public GenericResponseDto(){
-        Status = true;
+    private boolean status;
+    private String errorMessage;
+    private List<T> content;
+
+    public GenericResponseDto() {
+        status = true;
     }
 
-    public void loadError(String errorMessage){
-        Status = false;
-        ErrorMessage =  errorMessage;
+    /**
+     * Metodo para cargar un error a la respuesta
+     * 
+     * @param errorMessage mensaje de error
+     */
+    public void loadError(String errorMessage) {
+        status = false;
+        this.errorMessage = errorMessage;
     }
 
 }

@@ -5,32 +5,50 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.viajes_mascotas.viajes_mascotas.dto.UserDto;
+import com.viajes_mascotas.viajes_mascotas.enums.UserType;
 import com.viajes_mascotas.viajes_mascotas.mapper.UserMapper;
 import com.viajes_mascotas.viajes_mascotas.repository.implement.UserRepositoryImpl;
 import com.viajes_mascotas.viajes_mascotas.repository.interfaces.IUserRepository;
 import com.viajes_mascotas.viajes_mascotas.services.interfaces.IUserSvc;
+
 @Service
-public class UserSvcImpl implements IUserSvc{
-    
+public class UserSvcImpl implements IUserSvc {
+
     private final IUserRepository _userRepository;
 
-    public UserSvcImpl(UserRepositoryImpl userRepositoryImpl){
+    public UserSvcImpl(UserRepositoryImpl userRepositoryImpl) {
         _userRepository = userRepositoryImpl;
     }
 
-    public List<UserDto> getAllUsers(){
+    public List<UserDto> getAllUsers() {
         return UserMapper.toDtos(_userRepository.getAll());
-    } 
+    }
 
     public UserDto getById(int id) throws Exception {
-        UserDto result =  null;
+        UserDto result = null;
 
-        var user =  _userRepository.getById(id);
+        var user = _userRepository.getById(id);
 
-        if(user == null) throw new Exception("No se encontró el usuario: "+id);
+        if (user == null)
+            throw new Exception("No se encontró el usuario: " + id);
 
-        result =  UserMapper.toDto(user);
+        result = UserMapper.toDto(user);
 
         return result;
+    }
+
+    public List<UserDto> getUsersByType(int typeId) {
+
+        List<UserDto> result = null;
+
+        UserType userType = UserType.fromValue(typeId);
+
+        var users = UserMapper.toDtos(_userRepository.getAll()).stream().filter(f -> f.getType() == userType).toList();
+
+        if (!users.isEmpty())
+            result = users;
+
+        return result;
+
     }
 }
