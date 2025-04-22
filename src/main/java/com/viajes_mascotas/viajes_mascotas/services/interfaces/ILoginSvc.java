@@ -10,5 +10,5 @@ public interface ILoginSvc {
      * @param password contraseña asociada al usuario
      * @return devuelve un DTO de la información de Login
      */
-    LoginDto LoginWithCredentials(String email, String password);
+    LoginDto LoginWithCredentials(String email, String password) throws Exception;
 }

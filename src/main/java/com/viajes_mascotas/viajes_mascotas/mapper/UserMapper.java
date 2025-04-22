@@ -17,8 +17,10 @@ public class UserMapper {
         return UserDto.builder()
                 .email(entity.getEmail())
                 .firstName(entity.getFirstName())
-                .lastName(entity.getSecondName())
+                .lastName(entity.getLastName())
                 .type(entity.getType())
+                .id(entity.getId())
+                .password(entity.getPassword())
                 .build();
     }
 
@@ -31,6 +33,23 @@ public class UserMapper {
     public static List<UserDto> toDtos(List<User> entities) {
         return entities.stream()
                 .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+    
+    public static User toEntity(UserDto dto){
+        return User.builder()
+        .email(dto.getEmail())
+        .password(dto.getPassword())
+        .firstName(dto.getFirstName())
+        .lastName(dto.getLastName())
+        .type(dto.getType())
+        .id(dto.getId())
+        .build();
+    }
+
+    public static List<User> toEntities(List<UserDto> dtos) {
+        return dtos.stream()
+                .map(UserMapper::toEntity)
                 .collect(Collectors.toList());
     }
 }

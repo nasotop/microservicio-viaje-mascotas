@@ -13,7 +13,7 @@ public interface IUserSvc {
      * @throws Exception arroja error en caso de que no exista un usuario asociado
      *                   al id consultado
      */
-    UserDto getById(int id) throws Exception;
+    UserDto getById(Long id) throws Exception;
 
     /**
      * Metodo para conseguir la lista de todos los usuarios
@@ -30,4 +30,30 @@ public interface IUserSvc {
      *         usuario asociado al tipo
      */
     List<UserDto> getUsersByType(int typeId);
+
+    /**
+     * Metodo para crear un usuario
+     * 
+     * @param dto objeto por crear
+     * @return objeto creado
+     */
+    UserDto createUser(UserDto dto);
+
+    /**
+     * Metodo para actualizar un usuario
+     * 
+     * @param dto objeto para actualizar
+     * @param id  id del objeto para actualizar
+     * @return objeto actualizado
+     * @throws Exception
+     */
+    UserDto updateUser(UserDto dto, Long id) throws Exception;
+
+    /**
+     * Metodo para eliminar un usuario
+     * 
+     * @param id id del usuario para eliminar
+     * @throws Exception
+     */
+    void deleteUser(Long id) throws Exception;
 }

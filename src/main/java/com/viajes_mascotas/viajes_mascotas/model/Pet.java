@@ -2,9 +2,7 @@ package com.viajes_mascotas.viajes_mascotas.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.ManyToAny;
-
-import com.viajes_mascotas.viajes_mascotas.enums.UserType;
+import com.viajes_mascotas.viajes_mascotas.enums.SpecieType;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,48 +15,37 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Data
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "pet") 
+public class Pet {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    @Column
+    private String name;
     @Enumerated(EnumType.STRING)
-    private UserType type;
-
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pet> pets;
-    @ManyToMany(mappedBy = "participants")
+    private SpecieType type;
+    @ManyToOne
+    @JoinColumn(name= "owner_id")
+    private User owner;
+    @ManyToMany(mappedBy = "pets")
     private List<Travel> travel;
 
-    @PreRemove
+      @PreRemove
     private void preRemove() {
         for (Travel travel : this.travel) {
-            travel.getParticipants().remove(this);
-        }
-
-        for (Pet pet : this.pets) {
-            if (!pet.getOwner().equals(this))
-                continue;
-            pet.setOwner(null);
+            travel.getPets().remove(this);
         }
     }
-
 }

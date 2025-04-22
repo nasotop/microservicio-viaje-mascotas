@@ -2,37 +2,42 @@ package com.viajes_mascotas.viajes_mascotas.services.implement;
 
 import static com.viajes_mascotas.viajes_mascotas.dto.LoginDto.builder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.viajes_mascotas.viajes_mascotas.dto.LoginDto;
 import com.viajes_mascotas.viajes_mascotas.mapper.UserMapper;
-import com.viajes_mascotas.viajes_mascotas.repository.implement.UserRepositoryImpl;
-import com.viajes_mascotas.viajes_mascotas.repository.interfaces.IUserRepository;
+import com.viajes_mascotas.viajes_mascotas.model.User;
+import com.viajes_mascotas.viajes_mascotas.repository.UserRepository;
 import com.viajes_mascotas.viajes_mascotas.services.interfaces.ILoginSvc;
+
 @Service
 public class LoginSvcImpl implements ILoginSvc {
-    
-    private final IUserRepository _userRepository;
 
-    public LoginSvcImpl(UserRepositoryImpl userRepositoryImpl)
-    {
-        _userRepository=userRepositoryImpl;
-    }
+    @Autowired
+    private UserRepository _userRepository;
 
-    public LoginDto LoginWithCredentials(String email, String password){
+    public LoginDto LoginWithCredentials(String email, String password) throws Exception {
 
         LoginDto result = builder().IsLogged(false).build();
 
-        var user =  _userRepository.getByCredentials(email, password);
-        
-        if(user == null) return result;
+        var probe = User.builder().email(email).password(password).build();
 
-        var userDto =  UserMapper.toDto(user);
+        ExampleMatcher matcher = ExampleMatcher
+                .matchingAll()
+                .withIgnoreNullValues();
+
+        Example<User> example = Example.of(probe, matcher);
+        var user = _userRepository.findOne(example).orElseThrow(() -> new Exception("Credenciales invalidas"));
+
+        var userDto = UserMapper.toDto(user);
 
         result.setUserData(userDto);
-         
+
         result.setIsLogged(true);
         return result;
     }
-    
+
 }
