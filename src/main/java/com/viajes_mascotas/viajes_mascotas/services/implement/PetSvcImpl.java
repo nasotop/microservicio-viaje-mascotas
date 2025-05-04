@@ -8,7 +8,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.viajes_mascotas.viajes_mascotas.dto.PetDto;
-import com.viajes_mascotas.viajes_mascotas.helpers.LinkHelper;
 import com.viajes_mascotas.viajes_mascotas.mapper.PetMapper;
 import com.viajes_mascotas.viajes_mascotas.model.Pet;
 import com.viajes_mascotas.viajes_mascotas.repository.PetRepository;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viajes_mascotas.viajes_mascotas.dto.UserDto;
 import com.viajes_mascotas.viajes_mascotas.enums.UserType;
@@ -15,6 +16,8 @@ import com.viajes_mascotas.viajes_mascotas.repository.UserRepository;
 import com.viajes_mascotas.viajes_mascotas.services.interfaces.IUserSvc;
 
 @Service
+@Transactional(readOnly = true)
+
 public class UserSvcImpl implements IUserSvc {
     @Autowired
     private UserRepository _userRepository;
