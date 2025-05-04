@@ -2,13 +2,13 @@ package com.viajes_mascotas.viajes_mascotas.services.implement;
 
 import java.util.List;
 
-import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.viajes_mascotas.viajes_mascotas.dto.PetDto;
+import com.viajes_mascotas.viajes_mascotas.helpers.LinkHelper;
 import com.viajes_mascotas.viajes_mascotas.mapper.PetMapper;
 import com.viajes_mascotas.viajes_mascotas.model.Pet;
 import com.viajes_mascotas.viajes_mascotas.repository.PetRepository;
@@ -62,8 +62,10 @@ public class PetSvcImpl implements IPetSvc {
                 .orElseThrow(() -> new Exception("No se encontró la mascota " + id));
 
         entity.setName(dto.getName());
-        
+
         entity.setType(dto.getType());
+
+
 
         return PetMapper.toDto(_petRepository.save(entity));
     }
@@ -79,6 +81,7 @@ public class PetSvcImpl implements IPetSvc {
 
         var entity = PetMapper.toEntity(pet);
         entity.setOwner(owner);
+
 
         return PetMapper.toDto(_petRepository.save(entity));
     }

@@ -22,7 +22,7 @@ public class TravelController {
     private ITravelSvc _travelSvc;
 
     @GetMapping
-    public GenericResponseDto<TravelDto> getAllUsers() {
+    public GenericResponseDto<TravelDto> getAllTravels() {
         GenericResponseDto<TravelDto> result = new GenericResponseDto<>();
 
         try {

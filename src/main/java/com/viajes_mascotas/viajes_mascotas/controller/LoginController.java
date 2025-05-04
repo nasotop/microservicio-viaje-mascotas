@@ -7,14 +7,11 @@ import com.viajes_mascotas.viajes_mascotas.dto.GenericSingleResponseDto;
 import com.viajes_mascotas.viajes_mascotas.dto.LoginDto;
 import com.viajes_mascotas.viajes_mascotas.dto.UserCredentials;
 import com.viajes_mascotas.viajes_mascotas.mapper.GenericResponseMapper;
-import com.viajes_mascotas.viajes_mascotas.services.implement.LoginSvcImpl;
 import com.viajes_mascotas.viajes_mascotas.services.interfaces.ILoginSvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("api/login")

@@ -82,7 +82,7 @@ public class PetController {
     }
 
     @PutMapping("/delete/{id}")
-    public GenericSingleResponseDto<String> deleteUser(@PathVariable("id") Long id) {
+    public GenericSingleResponseDto<String> deletePet(@PathVariable("id") Long id) {
         GenericSingleResponseDto<String> result = new GenericSingleResponseDto<>();
         try {
             _petSvc.delete(id);

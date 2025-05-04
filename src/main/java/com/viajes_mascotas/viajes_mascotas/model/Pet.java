@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.viajes_mascotas.viajes_mascotas.enums.SpecieType;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

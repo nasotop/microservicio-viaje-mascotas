@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.viajes_mascotas.viajes_mascotas.dto.UserDto;
+import com.viajes_mascotas.viajes_mascotas.enums.UserType;
+import com.viajes_mascotas.viajes_mascotas.helpers.LinkHelper;
 import com.viajes_mascotas.viajes_mascotas.model.User;
 
 public class UserMapper {
@@ -14,7 +16,7 @@ public class UserMapper {
      * @return devuelve DTO de usuario
      */
     public static UserDto toDto(User entity) {
-        return UserDto.builder()
+        var dto = UserDto.builder()
                 .email(entity.getEmail())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
@@ -22,6 +24,12 @@ public class UserMapper {
                 .id(entity.getId())
                 .password(entity.getPassword())
                 .build();
+
+        if (dto.getType().equals(UserType.PetOwner)) {
+            dto.add(LinkHelper.ownerLink(dto.getId()));
+        }
+
+        return addLinks(dto);
     }
 
     /**
@@ -35,16 +43,21 @@ public class UserMapper {
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
     }
-    
-    public static User toEntity(UserDto dto){
+
+    public static UserDto addLinks(UserDto dto) {
+
+        return dto.add(LinkHelper.buildUserLinks(dto.getId()));
+    }
+
+    public static User toEntity(UserDto dto) {
         return User.builder()
-        .email(dto.getEmail())
-        .password(dto.getPassword())
-        .firstName(dto.getFirstName())
-        .lastName(dto.getLastName())
-        .type(dto.getType())
-        .id(dto.getId())
-        .build();
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .type(dto.getType())
+                .id(dto.getId())
+                .build();
     }
 
     public static List<User> toEntities(List<UserDto> dtos) {

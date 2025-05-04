@@ -1,6 +1,5 @@
 package com.viajes_mascotas.viajes_mascotas.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;

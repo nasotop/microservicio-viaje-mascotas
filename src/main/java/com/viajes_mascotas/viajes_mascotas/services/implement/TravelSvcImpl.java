@@ -9,7 +9,6 @@ import com.viajes_mascotas.viajes_mascotas.dto.TravelDto;
 import com.viajes_mascotas.viajes_mascotas.enums.UserType;
 import com.viajes_mascotas.viajes_mascotas.mapper.TravelMapper;
 import com.viajes_mascotas.viajes_mascotas.model.Pet;
-import com.viajes_mascotas.viajes_mascotas.model.User;
 import com.viajes_mascotas.viajes_mascotas.repository.TravelRepository;
 import com.viajes_mascotas.viajes_mascotas.services.interfaces.ITravelSvc;
 

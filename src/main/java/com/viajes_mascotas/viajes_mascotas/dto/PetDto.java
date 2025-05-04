@@ -1,5 +1,7 @@
 package com.viajes_mascotas.viajes_mascotas.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.viajes_mascotas.viajes_mascotas.enums.SpecieType;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PetDto {
+public class PetDto extends RepresentationModel<PetDto> {
     private Long id;
     private String name;
     private SpecieType type;
