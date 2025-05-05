@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: viajes-mascotas-app
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+    volumes:
+      - ./Wallet_BDBimestre1:/Wallet_BDBimestre1
+
+networks:
+  default:
+   driver: bridge

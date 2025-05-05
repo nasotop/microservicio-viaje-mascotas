@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viajes_mascotas.viajes_mascotas.dto.TravelDto;
 import com.viajes_mascotas.viajes_mascotas.enums.UserType;
@@ -71,7 +72,7 @@ public class TravelSvcImpl implements ITravelSvc {
         var entity = TravelMapper.toEntity(travel);
 
         entity.setId(id);
-        
+
         var owner = entity
                 .getParticipants()
                 .stream()
@@ -86,6 +87,8 @@ public class TravelSvcImpl implements ITravelSvc {
     }
 
     @Override
+    @Transactional
+
     public void delete(Long id) throws Exception {
         if (!_travelRepository.existsById(id)) {
             throw new Exception("No se encontró un viaje con el id " + id);

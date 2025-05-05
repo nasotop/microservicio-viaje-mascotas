@@ -1,6 +1,5 @@
 package com.viajes_mascotas.viajes_mascotas.services.implement;
 
-import static com.viajes_mascotas.viajes_mascotas.dto.LoginDto.builder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -21,7 +20,7 @@ public class LoginSvcImpl implements ILoginSvc {
 
     public LoginDto LoginWithCredentials(String email, String password) throws Exception {
 
-        LoginDto result = builder().IsLogged(false).build();
+        LoginDto result = LoginDto.builder().IsLogged(false).build();
 
         var probe = User.builder().email(email).password(password).build();
 

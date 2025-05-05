@@ -86,6 +86,7 @@ public class UserSvcImpl implements IUserSvc {
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long id) throws Exception {
 
         if (!_userRepository.existsById(id)) {

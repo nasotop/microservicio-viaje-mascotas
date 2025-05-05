@@ -24,8 +24,8 @@ public class UserSvcTest {
 
     
     @Test
-    public void deleteUserTest() {
+    public void getUserByIdTest() {
       
-        assertDoesNotThrow(()->  _userSvc.deleteUser(1L), "El metodo deleteUser arrojó un error");
+        assertDoesNotThrow(()->  _userSvc.getById(1L), "El metodo deleteUser arrojó un error");
     }
 }

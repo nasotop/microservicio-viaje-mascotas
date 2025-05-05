@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viajes_mascotas.viajes_mascotas.dto.PetDto;
 import com.viajes_mascotas.viajes_mascotas.mapper.PetMapper;
@@ -64,8 +65,6 @@ public class PetSvcImpl implements IPetSvc {
 
         entity.setType(dto.getType());
 
-
-
         return PetMapper.toDto(_petRepository.save(entity));
     }
 
@@ -81,11 +80,12 @@ public class PetSvcImpl implements IPetSvc {
         var entity = PetMapper.toEntity(pet);
         entity.setOwner(owner);
 
-
         return PetMapper.toDto(_petRepository.save(entity));
     }
 
     @Override
+    @Transactional
+
     public void delete(Long petId) throws Exception {
         if (!_petRepository.existsById(petId)) {
             throw new Exception("No se encontró la mascota con el id " + petId);

@@ -1,6 +1,5 @@
 package com.viajes_mascotas.viajes_mascotas.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LoginDto {
 
-   @JsonProperty("isLogged")
     private Boolean IsLogged;
 
-    @JsonProperty("userData")
     private UserDto UserData;
 }
